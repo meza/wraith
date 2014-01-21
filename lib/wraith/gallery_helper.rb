@@ -61,18 +61,29 @@ def parse_directories(dirname)
   return dirs
 end
 
-def generate_html(domain, directories, template, destination)
+def generate_html(location, directories, template, destination, path)
   template = File.read(template)
-  html = ERB.new(template).result
+  locals = {
+      :location => location,
+      :directories => directories,
+      :path => path
+  }
+  html = ERB.new(template).result(ErbBinding.new(locals).get_binding)
   File.open(destination, 'w') do |outf|
     outf.write(html)
   end
 end
 
-def dosTuff(location)
+def dosTuff(location, withPath)
   dest = "#{location}/gallery.html"
   directories = parse_directories(location);
-  generate_html(location, directories, TEMPLATE_BY_DOMAIN_LOCATION, dest)
+  generate_html(location, directories, TEMPLATE_BY_DOMAIN_LOCATION, dest, withPath)
   FileUtils.cp(BOOTSTRAP_LOCATION, "#{location}/bootstrap.min.css")
 
+end
+
+class ErbBinding < OpenStruct
+  def get_binding
+    return binding()
+  end
 end

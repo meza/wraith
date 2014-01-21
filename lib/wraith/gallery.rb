@@ -4,7 +4,7 @@
 # gallery
 
 
-require 'gallery_helper'
+require 'wraith/gallery_helper'
 
 
 if ARGV.length < 1 then

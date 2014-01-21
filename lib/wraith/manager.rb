@@ -5,7 +5,7 @@ require 'uri'
 require 'selenium-webdriver'
 
 require 'wraith/wraith'
-require 'gallery_helper'
+require 'wraith/gallery_helper'
 
 class WraithManager
   attr_reader :wraith
@@ -204,7 +204,7 @@ class WraithManager
     end
   end
 
-  def generate_gallery
-    dosTuff(directory)
+  def generate_gallery(withPath="")
+    dosTuff(directory, withPath)
   end
 end
