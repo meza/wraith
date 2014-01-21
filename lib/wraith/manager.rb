@@ -5,6 +5,7 @@ require 'uri'
 require 'selenium-webdriver'
 
 require 'wraith/wraith'
+require 'gallery_helper'
 
 class WraithManager
   attr_reader :wraith
@@ -201,5 +202,9 @@ class WraithManager
       new_name = filename.gsub(/^#{wraith.directory}/, "#{wraith.directory}/thumbnails")
       wraith.thumbnail_image(filename, new_name)
     end
+  end
+
+  def generate_gallery
+    dosTuff(directory)
   end
 end
